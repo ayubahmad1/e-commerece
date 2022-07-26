@@ -70,6 +70,8 @@ gem 'jquery-rails'
 
 gem 'cloudinary'
 
+gem 'pundit'
+
 group :development, :test do
   gem 'rubocop'
   gem 'rubocop-minitest'
