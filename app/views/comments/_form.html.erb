@@ -1,6 +1,6 @@
 <h2>Add a Comment</h2>
 
-<%= form_with model: [ @product, @product.comments.build ], local: true do |form| %>
+<%= form_with model: [ @product, @product.comments.build ] do |form| %>
   <p>
     <%= form.label :body %><br>
     <%= form.text_area :body %>
