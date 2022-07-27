@@ -35,10 +35,10 @@
     <%= form.number_field :price %>
   </div>
 
-  <%# <div class="field">
-    <%= f.label :images %><br />
-    <%# <%= f.file_field :images, multiple: true, autofocus: true %> %>
-  <%# </div> %> %>
+  <div class="field">
+    <%= form.label :images %><br />
+    <%= form.file_field :images, multiple: true, autofocus: true %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

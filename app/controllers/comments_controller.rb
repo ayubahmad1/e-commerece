@@ -10,10 +10,12 @@ class CommentsController < ApplicationController
   end
 
   def edit
-
+    # @comment = Comment.find(params[:id])
+    # @product = Product.find(params[:product_id])
   end
 
   def update
+
   end
 
   def destroy
