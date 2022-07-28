@@ -8,6 +8,7 @@
     <div class="card-body">
       <h5 class="card-title"><%= product.name %></h5>
       <p class="card-text">Rs. <%= product.price %></p>
+      <p>Quantity <%= session[:cart][product.id]%></p>
       <%= link_to 'Show', product, class: "btn btn-outline-primary" %>
       <%= link_to 'Add to Basket', add_to_cart_path(product.id), class: "btn btn-outline-warning", method: :post unless (@cart.include?(product) || @caller_view == 'productIndex') %>
       <%# <%= link_to 'In Basket', cart_path, class: "btn btn-success" if @cart.include?(product) %>

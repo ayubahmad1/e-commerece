@@ -52,8 +52,12 @@ class ProductsController < ApplicationController
 
   def add_to_cart
     id = params[:id].to_i
-
-    session[:cart] << id unless session[:cart].include?(id)
+    quantity = params[:quantity].to_i
+    flash[notice] = quantity
+    # p quantity
+    # p "somethinfdf"
+    session[:cart][id] = quantity
+    # unless session[:cart].include?(id)
     redirect_to root_path
   end
 
