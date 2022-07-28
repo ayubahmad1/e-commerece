@@ -1,12 +1,13 @@
 class ProductsController < ApplicationController
   # before_action :set_product, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show add_to_cart remove_from_cart]
 
   after_action :verify_authorized, only: %i[edit update destroy]
   # after_action :verify_policy_scoped, only: :index
 
   def index
     @products = current_user.products
+    @caller_view = 'productIndex'
   end
 
   def show
@@ -43,9 +44,23 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
+    authorize @product
     @product.destroy
 
     redirect_to user_products_path
+  end
+
+  def add_to_cart
+    id = params[:id].to_i
+
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_to root_path
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_to root_path
   end
 
   private

@@ -1,1 +1,5 @@
-<%= render 'products' %>
+<%= link_to 'Add Product', new_user_product_path %>
+<h1>My Products</h1>
+<div class="row">
+  <%= render current_user.products %>
+</div>
