@@ -1,46 +1,7 @@
-<%# <script>
-  // $("#addToCart").on("click", function(){
-  //   alert('mmmmmm');
-  // });
 
-  // $("#addToCart").on("click", function(){
-  //   cart[:product_id] = '1'
-  //   flash[:alert] = "Product added"
-  // });
-</script> %>
 <p id="notice"><%= notice %></p>
-
-<%# <% if @product.images.attached? %>
-  <%# <% @product.images.each do |image| %>
-    <%# <div style=""> %>
-      <%# <%= image_tag(image) %>
-    <%# </div> %>
-  <%# <% end %>
-<%# <% end %>
-
-<%# <p> %>
-  <%# <strong>Name:</strong> %>
-  <%# <%= @product.name %>
-<%# </p> %>
-
-<%# <p> %>
-  <%# <strong>Description:</strong> %>
-  <%# <%= @product.description %>
-<%# </p> %>
-
-<%# <p> %>
-  <%# <strong>Quantity:</strong> %>
-  <%# <%= @product.quantity %>
-<%# </p> %>
-
-<%# <p> %>
-  <%# <strong>Price:</strong> %>
-  <%# <%= @product.price %>
-<%# </p> %>
-
-
 <div class="container mt-5 mb-5">
-  <div class="card">
+  <div class="card shadow">
     <div class="row g-0">
       <div class="col-md-6 border-end">
         <div class="d-flex flex-column justify-content-center">
@@ -63,25 +24,25 @@
           </div>
           <h3>Rs. <%= @product.price %></h3>
           <br>
-          <h6>Qty. <%= @product.quantity %></h6>
-      <div class="buttons d-flex flex-row mt-5 gap-3">
-      <%# <%= form_tag model: @product, method: :post do  %>
-	      <%# <%= text_field_tag "Quantity", params[:quantity] %> %>
-	      <%# <input type="submit"> %>
-      <%# <% end %> %> %>
-      <%# <%= text_field_tag "Quantity", :qty %> %>
-      <%= link_to 'Add to Basket', add_to_cart_path(@product.id), class: "btn btn-outline-warning", method: :post unless @cart.include?(@product) %>
-      <%= link_to 'Remove from Basket',  remove_from_cart_path(@product), class: "btn btn-success" , method: :delete if @cart.include?(@product)%>
-      <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-outline-warning" if policy(@product).update? %>
-      <%= link_to 'Destroy', product_path(@product), class: "btn btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } if policy(@product).destroy? %>
+          <div class="buttons d-flex flex-row mt-5 gap-3">
+            <% if false %>
+              <%= form_tag add_to_cart_path do |form| %>
+                <%= number_field_tag :quantity, placeholder: 'Add Quantity'%>
+                <%= submit_tag "Add", class: "btn btn-sm btn-outline-success" %>
+              <% end %>
+            <% end %>
+            <%# <%= link_to 'Add to Basket', add_to_cart_path(@product.id), class: "btn btn-outline-warning", method: :post unless @cart.include?(@product) %>
+            <%= link_to 'Remove from Basket',  remove_from_cart_path(@product), class: "btn btn-sm btn-outline-danger" , method: :delete if @cart.include?(@product)%>
+            <%# <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-outline-warning" if policy(@product).update? %>
+            <%# <%= link_to 'Destroy', product_path(@product), class: "btn btn-outline-danger", method: :delete, data: { confirm: 'Are you sure?' } if policy(@product).destroy? %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-</div>
 
 <%= render @product.comments %>
-<%= render 'comments/form' if policy(@product).comment? %>
+<%= render 'comments/form' if policy(@product).comment? && user_signed_in? %>
 
-<%= link_to 'Back', root_path, class: "btn btn-outline-dark" %>
+<%= link_to 'Back', root_path, class: "btn btn-sm btn-outline-dark" %>

@@ -6,8 +6,8 @@ class ProductsController < ApplicationController
   # after_action :verify_policy_scoped, only: :index
 
   def index
+    @renderer = 'productsIndex'
     @products = current_user.products
-    @caller_view = 'productIndex'
   end
 
   def show
@@ -51,20 +51,22 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    id = params[:id].to_i
-    quantity = params[:quantity].to_i
-    flash[notice] = quantity
-    # p quantity
-    # p "somethinfdf"
-    session[:cart][id] = quantity
-    # unless session[:cart].include?(id)
-    redirect_to root_path
+    session[:cart][params[:id].to_i] = 1
+    redirect_to request.referer
+  end
+
+  def update_quantity
+    return if params[:quantity].nil?
+
+    session[:cart][params[:id].to_i] = params[:quantity]
+    redirect_to request.referer
   end
 
   def remove_from_cart
-    id = params[:id].to_i
-    session[:cart].delete(id)
-    redirect_to root_path
+    return if params[:id].nil?
+
+    session[:cart].delete(params[:id])
+    redirect_to request.referer
   end
 
   private

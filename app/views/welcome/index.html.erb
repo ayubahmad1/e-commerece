@@ -1,8 +1,12 @@
-<h1>All Products</h1>
+<h1 class="text-center text-dark mb-5 shadow border-bottom">All Products</h1>
+
+<summary>Shopping Cart</summary>
+<%= debug session[:cart]%>
+
 <div class="row">
-<%# <% if user_signed_in? %>
-  <%= render  Product.all %>
-<%# <% else %>
-  <%# <%= render Product.all_products_except_mine %>
-<%# <% end %>
+<% if user_signed_in? %>
+  <%= render Product.all_products_except_mine(current_user.id), locals: {renderer: @renderer}%>%>
+<% else %>
+  <%= render  Product.all , locals: {renderer: @renderer}%>
+<% end %>
 </div>
