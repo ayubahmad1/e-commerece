@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+
   # before_action :set_product, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show add_to_cart remove_from_cart]
 

@@ -75,6 +75,8 @@ gem 'pundit'
 
 gem 'stripe'
 
+gem 'ransack'
+
 group :development, :test do
   gem 'rubocop'
   gem 'rubocop-minitest'
