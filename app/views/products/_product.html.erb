@@ -9,7 +9,7 @@
       <p class="card-text">Rs. <%= product.price %></p>
       <% if @renderer == 'welcomeIndex' %>
         <%= link_to 'Show', product, class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" %>
-        <%= link_to 'Add to Basket', add_to_cart_path(product.id), class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow", method: :post unless @cart.include?(product) %>
+        <%= link_to 'Add to Basket', add_to_cart_path(product.id),remote: true, class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow", method: :post unless @cart.include?(product) %>
         <%= link_to 'Remove from Basket',  remove_from_cart_path(product), class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" , method: :delete if @cart.include?(product)%>
       <% elsif @renderer == 'productsIndex' %>
         <%= link_to 'Show', product, class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" %>

@@ -5,7 +5,7 @@
     <title>Ecommerece</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://js.stripe.com/v3/"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -14,8 +14,8 @@
     <%= render 'layouts/header' %>
     <%# <%= cl_image_tag current_user.image %>
     <%# <%= image_tag(current_user.image) %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <p class="notice bg-green"><%= notice %></p>
+    <p class="alert bg-green"><%= alert %></p>
     <div class="container">
       <%= yield %>
     </div>

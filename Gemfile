@@ -73,6 +73,8 @@ gem 'cloudinary'
 
 gem 'pundit'
 
+gem 'stripe'
+
 group :development, :test do
   gem 'rubocop'
   gem 'rubocop-minitest'

@@ -5,3 +5,9 @@
 </div>
 
 <h4 class="text-end mt-4">Total Price: <%= @total_price %></h4>
+
+<% if @cart.present? %>
+  <%= @cart.collect { |item| item.to_builder.attributes! } %>
+  <%= link_to 'Checkout Now', checkout_path, remote: true,method: :post, data: { disable_with: "validating..."}  %>
+  <%# <%= button_to "Buy now!", checkout_path, remote: true, data: { disable_with: "validating..."} %> %>
+<% end %>
