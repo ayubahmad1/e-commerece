@@ -5,16 +5,7 @@ class CheckoutController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!
   def create
-    @session = Stripe::Checkout::Session.create(
-      {
-        customer: current_user.stripe_customer_id,
-        payment_method_types: ['card'],
-        line_items: @cart.collect { |item| to_stripe_item(item).attributes! },
-        allow_promotion_codes: true,
-        mode: 'payment',
-        success_url: "#{success_url}?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: cancel_url
-      })
+    @session = create_checkout_seesion(@cart)
     redirect_to @session.url
   end
 

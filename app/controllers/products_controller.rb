@@ -25,8 +25,6 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
-  def edit; end
-
   def create
     @product = current_user.products.new(product_params)
     if @product.save
@@ -35,6 +33,8 @@ class ProductsController < ApplicationController
       render 'new'
     end
   end
+
+  def edit; end
 
   def update
     if @product.update(product_params)

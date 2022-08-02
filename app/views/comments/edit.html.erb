@@ -1,0 +1,11 @@
+<h2>Edit Comment</h2>
+<%# <%= render 'form', comment: @comment, url: edit_comment_path(@comment) %>
+  <%= form_with model: @comment do |form| %>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>

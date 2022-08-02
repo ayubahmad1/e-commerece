@@ -1,4 +1,13 @@
-<%= search_form_for @q, class: "d-flex" do |form| %>
+<%= search_form_for @q, url: products_all_users_products_user_products_path, method: :get, class: "d-flex" do |form| %>
   <%= form.search_field :name_cont, placeholder: 'Search', class: "form-control me-2"%>
   <%= form.submit "Search", class: "btn btn-Outline-success"%>
+<% end %>
+
+<%# <%#########################################################################%>
+<% if false %>
+  <%= form_with url: products_path , method: :get do |form| %>
+  <%= form.label :q, "Search for:" %>
+  <%= form.text_field :q %>
+  <%= form.submit "Search" %>
+  <% end %>
 <% end %>

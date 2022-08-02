@@ -24,8 +24,8 @@
           <h3>Rs. <%= @product.price %></h3>
           <br>
           <div class="buttons d-flex flex-row mt-5 gap-3">
-            <%= link_to 'Add to Basket', add_to_cart_path(@product.id), class: "btn btn-sm btn-outline-dark", method: :post unless @cart.include?(@product) %>
-            <%= link_to 'Remove from Basket',  remove_from_cart_path(@product), class: "btn btn-sm btn-outline-dark" , method: :delete if @cart.include?(@product)%>
+            <%= link_to 'Add to Basket', add_to_cart_path(@product.id),remote: true, class: "btn btn-sm btn-outline-dark", method: :post unless @cart.include?(@product) %>
+            <%= link_to 'Remove from Basket',  remove_from_cart_path(@product),remote: true, class: "btn btn-sm btn-outline-dark" , method: :delete if @cart.include?(@product)%>
           </div>
         </div>
       </div>
@@ -34,6 +34,6 @@
 </div>
 
 <%= render @product.comments %>
-<%= render 'comments/form' if policy(@product).comment? && user_signed_in? %>
+<%= render 'comments/form', comment: @comment, url: product_comments_path(@product, @comment) if policy(@product).comment? && user_signed_in? %>
 
 <%= link_to 'Back', root_path, class: "btn btn-sm btn-outline-dark" %>

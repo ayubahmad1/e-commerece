@@ -5,14 +5,21 @@ Rails.application.routes.draw do
   devise_for :users
   resource :user, shallow: true do
     resources :products, shallow: true do
+      get "products/all_users_products", to: "products#all_users_products", on: :collection
       resources :comments
     end
   end
 
   resource :cart, only: :show
 
-  get "products/all_users_products", to: "products#all_users_products", as: "products"
 
+
+  # resources :checkout, only: [:create] do
+  #   member do
+  #     get 'success'
+  #     get 'cancel'
+  #   end
+  # end
   post "checkout/create", to: "checkout#create", as: "checkout"
   get "success", to: "checkout#success", as: "success"
   get "cancel", to: "checkout#cancel", as: "cancel"

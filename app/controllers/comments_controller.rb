@@ -3,13 +3,14 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: %i[create]
-  before_action :set_comment, :authorize_comment, only: %i[destroy]
+  before_action :set_comment, :authorize_comment, only: %i[destroy edit update]
 
   after_action :verify_authorized, only: %i[destroy]
 
+  def new; end
+
   def create
     @comment = @product.comments.build(comment_params)
-    @comment.user_id = current_user.id
     if @comment.save
       redirect_to product_path(@product)
     else
@@ -19,7 +20,13 @@ class CommentsController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    if @comment.update(comment_params)
+      redirect_to product_path(@comment.product)
+    else
+      render 'edit'
+    end
+  end
 
   def destroy
     @product = @comment.product
@@ -45,6 +52,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body).merge(user_id: current_user.id)
   end
 end
