@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -6,19 +8,12 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def update?
-    user_is_owner_of_record?
+    user == @record.user
   end
 
-  def destroy?
-    user_is_owner_of_record?
-  end
+  alias destroy? update?
 
   def comment?
-    !user_is_owner_of_record?
-  end
-
-  private
-  def user_is_owner_of_record?
-    user == @record.user
+    user != @record.user
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'products#all_users_products'
   devise_for :users
   resource :user, shallow: true do
     resources :products, shallow: true do
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resource :cart, only: :show
 
-  get "welcome/index", to: "welcome#index", as: "products"
+  get "products/all_users_products", to: "products#all_users_products", as: "products"
 
   post "checkout/create", to: "checkout#create", as: "checkout"
   get "success", to: "checkout#success", as: "success"
@@ -20,7 +20,5 @@ Rails.application.routes.draw do
   put 'products/update_quantity/:id', to: 'products#update_quantity', as: 'update_quantity'
   post 'products/add_to_cart/:id', to: 'products#add_to_cart', as: 'add_to_cart'
   delete 'products/remove_from_cart/:id', to: 'products#remove_from_cart', as: 'remove_from_cart'
-
-  get '/401', to: 'welcome#page_unauthorized', as: :page_unauthorized
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

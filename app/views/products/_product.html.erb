@@ -7,15 +7,15 @@
     <div class="card-body">
       <h5 class="card-title"><%= product.name %></h5>
       <p class="card-text">Rs. <%= product.price %></p>
-      <% if @renderer == 'welcomeIndex' %>
+      <% if controller_name == 'products' && action_name == 'all_users_products' %>
         <%= link_to 'Show', product, class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" %>
         <%= link_to 'Add to Basket', add_to_cart_path(product.id),remote: true, class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow", method: :post unless @cart.include?(product) %>
         <%= link_to 'Remove from Basket',  remove_from_cart_path(product), class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" , method: :delete if @cart.include?(product)%>
-      <% elsif @renderer == 'productsIndex' %>
+      <% elsif controller_name == 'products' && action_name == 'index' %>
         <%= link_to 'Show', product, class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" %>
         <%= link_to 'Edit', edit_product_path(product), class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow" if policy(product).update? %>
         <%= link_to 'Destroy', product_path(product), class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow", method: :delete, data: { confirm: 'Are you sure?' } if policy(product).destroy? %>
-      <% elsif @renderer == 'cartShow' %>
+      <% elsif controller_name == 'carts' %>
         <p>Quantity <%= session[:cart][product.id.to_s]%></p>
         <%= form_with url: update_quantity_url(product), method: :put , remote: true do |form| %>
           <%= form.number_field :quantity , value: session[:cart][product.id.to_s], min: 1, size: 2  %>

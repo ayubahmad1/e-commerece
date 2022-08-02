@@ -1,54 +1,55 @@
-class ProductsController < ApplicationController
+# frozen_string_literal: true
 
-  # before_action :set_product, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: %i[index show add_to_cart remove_from_cart]
+class ProductsController < ApplicationController
+  include ApplicationHelper
+  before_action :authenticate_user!, except: %i[index show add_to_cart remove_from_cart all_users_products]
+  before_action :set_product, only: %i[show edit update destroy]
+  before_action :authorize_product, only: %i[edit update destroy]
 
   after_action :verify_authorized, only: %i[edit update destroy]
-  # after_action :verify_policy_scoped, only: :index
 
   def index
-    @renderer = 'productsIndex'
     @products = current_user.products
   end
 
-  def show
-    @product = Product.find(params[:id])
+  def all_users_products
+    @q = Product.ransack(params[:q])
+    return @products = @q.result(distinct: true).all_products_except_mine(current_user) if user_signed_in?
+
+    @products = @q.result(distinct: true)
   end
+
+  def show; end
 
   def new
     @product = Product.new
   end
 
-  def edit
-    @product = Product.find(params[:id])
-    authorize @product
-  end
+  def edit; end
 
   def create
     @product = current_user.products.new(product_params)
     if @product.save
-      redirect_to product_url(@product), notice: "Product was successfully created."
+      redirect_to @product, notice: 'Product was successfully created.'
     else
       render 'new'
     end
   end
 
   def update
-    @product = current_user.products.find(params[:id])
-    authorize @product
     if @product.update(product_params)
       redirect_to @product
     else
-      render new
+      render 'edit'
     end
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    authorize @product
-    @product.destroy
-
-    redirect_to user_products_path
+    if @product.destroy
+      redirect_to user_products_path
+    else
+      flash[:error] = 'There is some error in destroying Product'
+    end
   end
 
   def add_to_cart
@@ -72,7 +73,15 @@ class ProductsController < ApplicationController
 
   private
 
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  def authorize_product
+    authorize @product
+  end
+
   def product_params
-    params.require(:product).permit(:name, :description, :quantity, :price, images:[])
+    params.require(:product).permit(:name, :description, :quantity, :price, images: [])
   end
 end
