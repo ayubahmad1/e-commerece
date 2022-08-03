@@ -6,10 +6,8 @@
 
 
 <% if @cart.present? %>
-  <%# <%= @cart.collect { |item| item.to_builder.attributes! } %>
   <div class = "d-flex justify-content-between">
     <h4 class="">Total Price: <%= @total_price %></h4>
     <%= link_to 'Checkout Now', checkout_path, class: "btn btn-sm btn-outline-success text-center",remote: true, method: :post, data: { disable_with: "validating..."}  %>
   </div>
-  <%# <%= button_to "Buy now!", checkout_path, remote: true, data: { disable_with: "validating..."} %>
 <% end %>

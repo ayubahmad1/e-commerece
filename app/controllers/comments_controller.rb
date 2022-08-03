@@ -2,23 +2,30 @@
 
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_product, only: %i[create]
+  before_action :set_product, only: %i[new create]
   before_action :set_comment, :authorize_comment, only: %i[destroy edit update]
 
   after_action :verify_authorized, only: %i[destroy]
 
-  def new; end
+  def new
+    @comment = @product.comments.new
+  end
 
   def create
     @comment = @product.comments.build(comment_params)
     if @comment.save
       redirect_to product_path(@product)
     else
-      flash[:error] = 'Comment is not valid.'
+      flash[:alert] = 'Comment is not valid.'
     end
   end
 
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html { redirect_to edit_comment_path }
+      format.js
+    end
+  end
 
   def update
     if @comment.update(comment_params)
@@ -33,7 +40,7 @@ class CommentsController < ApplicationController
     if @comment.destroy
       redirect_to product_path(@product)
     else
-      flash[:error] = 'There is some error in deleting comment.'
+      flash[:alert] = 'There is some error in deleting comment.'
     end
   end
 

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">E-Commerece</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,24 +19,33 @@
           <li class="nav-item">
             <%= link_to 'Add Product', new_user_product_path, class: 'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to 'Edit Profile', edit_user_registration_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Log Out', destroy_user_session_path, class: "nav-link" %>
-          </li>
-
-        <% else %>
-          <li class="nav-item">
-            <%= link_to 'Sign In', new_user_session_path, class: "nav-link"  %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link"%>
-          </li>
         <% end %>
       </ul>
 
-      <% if controller_name == 'products' && action_name == 'all_users_products'%>
+      <ul class="navbar-nav d-flex align-items-center me-auto mb-2 mb-lg-0">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Log Out', destroy_user_session_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <p class="mb-0 me-3 text-muted text-uppercase"><%= current_user.name %></p>
+        </li>
+        <li class="nav-item">
+          <%= image_tag(current_user.image, size: 25, class:"rounded-pill" ) %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Sign In', new_user_session_path, class: "nav-link"  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link"%>
+        </li>
+      <% end %>
+      </ul>
+      <% if controller_name == 'products' && action_name == 'all_products'%>
         <%= render 'layouts/search' %>
       <% end %>
     </div>

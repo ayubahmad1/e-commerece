@@ -1,0 +1,3 @@
+$("#edit-comment").removeClass('d-none')
+$("#edit-comment").append("<%= j render partial: 'form', comment: @comment, model_type: [@comment] %>")
+

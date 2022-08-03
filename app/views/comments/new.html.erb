@@ -1,1 +1,2 @@
-<%= render 'form', locals: {product: @product, comment: @comment} %>
+<h2>Add a Comment</h2>
+<%= render 'form', comment: @comment, model_type: [:product, @comment] %>

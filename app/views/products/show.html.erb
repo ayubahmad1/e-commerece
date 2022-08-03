@@ -34,6 +34,6 @@
 </div>
 
 <%= render @product.comments %>
-<%= render 'comments/form', comment: @comment, url: product_comments_path(@product, @comment) if policy(@product).comment? && user_signed_in? %>
+<%= render 'comments/form', comment: @comment, model_type: [@product, @product.comments.build], url: product_comments_path(@product, @comment) if policy(@product).comment? && user_signed_in? %>
 
 <%= link_to 'Back', root_path, class: "btn btn-sm btn-outline-dark" %>

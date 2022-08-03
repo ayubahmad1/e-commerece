@@ -3,9 +3,18 @@
       <p><%= comment.body%></p>
       <div class="d-flex justify-content-between">
         <div class="d-flex flex-row align-items-center">
-          <img src:image_url(comment.user.image) alt="" width="25" height="25" />
+          <%= image_tag(comment.user.image, size: 25) %>
           <p class="small mb-0 ms-2"><%= comment.user.name %></p>
-          <%= link_to 'Edit', edit_comment_path(comment), class: "btn btn-warning btn-small m-2" if policy(comment).update? %>
+
+          <%# <%= link_to 'Edit',  , class: "btn btn-warning btn-small m-2", id: 'btn-edit-comment' if policy(comment).update? %> %>
+          <%= link_to 'Edit', edit_comment_path(comment), class: "btn btn-warning btn-small m-2", remote: true if policy(comment).update? %>
+
+          <div id="edit-comment" class="d-none">
+            <h2>Edit Comment</h2>
+            <%# <%= render 'comments/form', comment: comment, model_type: [comment] %> %>
+          </div>
+
+          <%# <%= link_to 'Edit', edit_comment_path(comment), class: "btn btn-warning btn-small m-2" if policy(comment).update? %> %>
           <%= link_to 'Delete', comment, class: "btn btn-danger btn-small m-2" ,
           method: :delete,
           data: { confirm: 'Are you sure?'} if policy(comment).destroy? %>

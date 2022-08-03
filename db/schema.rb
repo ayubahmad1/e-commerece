@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_31_125833) do
+ActiveRecord::Schema.define(version: 2022_08_03_082751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_07_31_125833) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "body"
+    t.string "body", null: false
     t.bigint "user_id"
     t.bigint "product_id"
     t.datetime "created_at", null: false
@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 2022_07_31_125833) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.integer "quantity"
-    t.integer "price"
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "quantity", null: false
+    t.integer "price", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
