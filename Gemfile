@@ -68,7 +68,10 @@ gem 'devise'
 gem 'bootstrap'
 gem 'jquery-rails'
 
+gem "active_model_serializers"
 gem 'cloudinary'
+
+gem 'pundit'
 
 group :development, :test do
   gem 'rubocop'

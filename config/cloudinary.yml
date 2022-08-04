@@ -1,0 +1,11 @@
+development:
+  cloud_name: "dsbuulrza"
+  api_key: "571851636232923"
+  api_secret: "bLFS4abArQ3eQ7Dytw2SjSwaRec"
+  secure: true
+
+production:
+  cloud_name: "dsbuulrza"
+  api_key: "571851636232923"
+  api_secret: "bLFS4abArQ3eQ7Dytw2SjSwaRec"
+  secure: true

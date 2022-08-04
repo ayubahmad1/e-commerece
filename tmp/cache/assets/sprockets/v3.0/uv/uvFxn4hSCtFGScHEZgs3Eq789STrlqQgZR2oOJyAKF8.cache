@@ -1,0 +1,7 @@
+I"Å(function() {
+  $(document).on('click', '#btn-edit-comment', function() {
+    $('#edit-comment').toggle();
+  });
+
+}).call(this);
+:ET
