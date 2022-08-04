@@ -1,22 +1,33 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Ecommerece</title>
+    <title>Your Personal Store</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://js.stripe.com/v3/"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class = "" >
     <%= render 'layouts/header' %>
-    <%# <%= cl_image_tag current_user.image %>
-    <%# <%= image_tag(current_user.image) %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <% if notice %>
+      <p class="notice bg-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert bg-warning"><%= alert %></p>
+    <% end %>
+
+    <% if false %>
+      <% if flash[:alert] %>
+        <div id="alert">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="container">
+      <%= yield %>
+    </div>
     <%= render 'layouts/footer'%>
   </body>
 </html>

@@ -1,0 +1,13 @@
+<h1 class="text-center text-dark mb-5 shadow border-bottom">Your Cart</h1>
+<h4>Total Basket Items: <%= @cart.count %></h4>
+<div class="row">
+  <%= render @cart, locals: {renderer: @renderer} %>
+</div>
+
+
+<% if @cart.present? %>
+  <div class = "d-flex justify-content-between">
+    <h4 class="">Total Price: <%= @total_price %></h4>
+    <%= link_to 'Checkout Now', checkout_path, class: "btn btn-sm btn-outline-success text-center",remote: true, method: :post, data: { disable_with: "validating..."}  %>
+  </div>
+<% end %>

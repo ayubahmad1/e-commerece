@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -5,17 +7,29 @@ class CommentPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    true
+  end
+
+  def new?
+    true
+  end
+
+  def create?
+    true
+  end
+
+  def edit?
+    true
+  end
+
   def update?
-    user_is_owner_of_record?
-  end
-
-  def destroy?
-    user_is_owner_of_record?
-  end
-
-  private
-  def user_is_owner_of_record?
     user == @record.user
   end
 
+  def show?
+    true
+  end
+
+  alias destroy? update?
 end

@@ -1,5 +1,4 @@
+# frozen_string_literal: true
+
 module ProductsHelper
-  # def render_models(*models)
-  #   models.split('')
-  # end
 end
