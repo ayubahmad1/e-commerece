@@ -3,7 +3,7 @@
 class CartsController < ApplicationController
   include CartsHelper
   def show
-    @total_price = total
+    @total_price = total(@cart)
   end
 
   def add_to_cart
