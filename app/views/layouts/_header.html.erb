@@ -33,9 +33,11 @@
         <li class="nav-item">
           <p class="mb-0 me-3 text-muted text-uppercase"><%= current_user.name %></p>
         </li>
-        <li class="nav-item">
-          <%= image_tag(current_user.image, size: 25, class:"rounded-pill" ) %>
-        </li>
+        <% if current_user.image.attached? %>
+          <li class="nav-item">
+            <%= image_tag(current_user.image, size: 25, class:"rounded-pill" ) %>
+          </li>
+        <% end %>
       <% else %>
         <li class="nav-item">
           <%= link_to 'Sign In', new_user_session_path, class: "nav-link"  %>
