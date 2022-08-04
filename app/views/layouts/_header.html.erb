@@ -12,24 +12,28 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
         <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              My Account
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%# <li><a class="dropdown-item" href="#">Products</a></li> %>
+              <li><%= link_to 'Products', user_products_path, class: 'dropdown-item' %></li>
+              <li><%= link_to 'Add Product', new_user_product_path, class: 'dropdown-item' %></li>
+              <%# <li><a class="dropdown-item" href="#">Add Product</a></li> %>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
           <li class="nav-item">
             <%= link_to 'Log Out', destroy_user_session_path, class: "nav-link" %>
           </li>
+
         <% else %>
           <li class="nav-item">
             <%= link_to 'Sign In', new_user_session_path, class: "nav-link"  %>

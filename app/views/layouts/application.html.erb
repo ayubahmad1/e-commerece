@@ -12,10 +12,11 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <%# <%= cl_image_tag(@current_user.image.key, width: 300, height: 200, crop: :scale, effect: "cartoonify") %> %>
-    <p class="notice alert-success"><%= notice %></p>
-    <p class="alert alert-warning"><%= alert %></p>
+    <%# <%= cl_image_tag current_user.image %>
+    <%# <%= image_tag(current_user.image) %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
-    <%= render 'layouts/footer' %>
+    <%= render 'layouts/footer'%>
   </body>
 </html>
