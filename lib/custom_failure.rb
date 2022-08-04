@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class CustomFailure < Devise::FailureApp
-  def redirect_url
-    page_unauthorized_path
-  end
 
   def respond
     if http_auth?
