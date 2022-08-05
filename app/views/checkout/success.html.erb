@@ -56,15 +56,8 @@
               </tr>
             </thead>
             <tbody>
-              <% @cart.each do |item| %>
-                <tr>
-                  <th scope="row"></th>
-                  <td><%= item.name %></td>
-                  <td>Pkr. <%= item.price %></td>
-                </tr>
-              <% end %>
+              <%= render  partial: "item", collection: @cart %>
             </tbody>
-
           </table>
         </div>
         <div class="row">

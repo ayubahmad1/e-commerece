@@ -19,8 +19,6 @@ class ProductsController < ApplicationController
     @products = @q.result(distinct: true)
   end
 
-  def show; end
-
   def new
     @product = Product.new
   end
@@ -51,6 +49,8 @@ class ProductsController < ApplicationController
       flash[:alert] = 'There is some error in destroying Product'
     end
   end
+
+  def show; end
 
   private
 

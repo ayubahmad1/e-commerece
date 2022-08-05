@@ -76,3 +76,25 @@ Postgres
 #### Deployement
 
 I have deployed my application on heroku-18.
+
+## Project Setup for new machine
+- Use Git clone to clone the repository to the local machine
+- Run
+  ```sh
+    Bundle install
+  ```
+- Use
+  ```sh
+    rake db/setup
+  ```
+  to create db, load schema and seed add into it
+- Start server using
+  ```sh
+    rails s
+  ```
+- Run
+  ```sh
+    loaclhost:3000
+  ```
+- Sign up as a customer and move towards login.
+- View Items and add in cart and place your order after pay the amount and wait for order delivery

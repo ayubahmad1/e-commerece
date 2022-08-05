@@ -1,7 +1,7 @@
 <%= form_with model: model_type do |form| %>
   <p>
     <%= form.label :body %><br>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, required: true %>
   </p>
   <p>
     <%= form.submit %>

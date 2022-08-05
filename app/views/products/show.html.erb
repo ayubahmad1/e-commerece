@@ -24,8 +24,8 @@
           <h3>Rs. <%= @product.price %></h3>
           <br>
           <div class="buttons d-flex flex-row mt-5 gap-3">
-            <%= link_to 'Add to Basket', add_to_cart_path(@product.id),remote: true, class: "btn btn-sm btn-outline-dark", method: :post unless @cart.include?(@product) %>
-            <%= link_to 'Remove from Basket',  remove_from_cart_path(@product),remote: true, class: "btn btn-sm btn-outline-dark" , method: :delete if @cart.include?(@product)%>
+            <%# <%= link_to 'Add to Basket', add_to_cart_path(@product.id),remote: true, class: "btn btn-sm btn-outline-dark", method: :post unless @cart.include?(@product) && policy(@product). %>
+            <%= link_to 'Remove from Basket',  remove_from_cart_path(@product),remote: true, class: "btn btn-sm btn-outline-dark" , method: :delete if @cart.include?(@product) %>
           </div>
         </div>
       </div>

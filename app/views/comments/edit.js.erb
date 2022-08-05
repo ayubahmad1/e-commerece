@@ -1,3 +1,2 @@
 $("#edit-comment").removeClass('d-none')
 $("#edit-comment").html("<%= escape_javascript(render partial: 'form', locals: { comment: @comment, model_type: [@comment] }) %>")
-
