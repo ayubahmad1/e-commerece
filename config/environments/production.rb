@@ -27,7 +27,6 @@ Rails.application.configure do
   # config.serve_static_files = true
   # config.assets.compress = true
 
-
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.js_compressor = :uglifier
@@ -107,12 +106,14 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:        'smtp.gmail.com',
-    port:           '587',
+    address: 'smtp.gmail.com',
+    port: '587',
     # domain:         'localhost:3000',
-    user_name:      Rails.application.credentials[:smtp][:username],
-    password:       Rails.application.credentials[:smtp][:password],
+    user_name: Rails.application.credentials[:smtp][:username],
+    password: Rails.application.credentials[:smtp][:password],
     authentication: :plain
     # enable_starttls_auto: true
   }
+
+  config.action_mailer.default_url_options = { host: 'https://morning-sea-82928.herokuapp.com'}
 end

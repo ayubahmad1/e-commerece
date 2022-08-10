@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   include ApplicationHelper
   before_action :authenticate_user!, except: %i[index show all_products]
   before_action :set_product, only: %i[show edit update destroy]
+  # before_action :set_product, except: %i[new create index]
   before_action :authorize_product, only: %i[edit update destroy]
 
   after_action :verify_authorized, only: %i[edit update destroy]
