@@ -17,7 +17,7 @@
           <%= link_to 'Destroy', product_path(product), class: "btn btn-sm btn-outline-dark w-100 mt-2 shadow", method: :delete, data: { confirm: 'Are you sure?' } if policy(product).destroy? %>
         <% elsif controller_name == 'carts' %>
           <p>Quantity <%= session[:cart][product.id.to_s]%></p>
-          <%= form_with url: update_quantity_url(product), method: :put , remote: true do |form| %>
+          <%= form_with url: update_quantity_cart_url(product), method: :put , remote: true do |form| %>
             <%= form.number_field :quantity , value: session[:cart][product.id.to_s], min: 1, size: 2  %>
             <%= form.submit "Update Quantity", class: "w-100 mt-2"  %>
           <% end  %>

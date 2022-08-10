@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_03_082751) do
+ActiveRecord::Schema.define(version: 2022_08_07_054754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 2022_08_03_082751) do
 
   create_table "comments", force: :cascade do |t|
     t.string "body", null: false
-    t.bigint "user_id"
-    t.bigint "product_id"
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_comments_on_product_id"
@@ -51,11 +51,12 @@ ActiveRecord::Schema.define(version: 2022_08_03_082751) do
     t.string "description", null: false
     t.integer "quantity", null: false
     t.integer "price", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_product_id"
     t.string "stripe_price_id"
+    t.index ["name"], name: "index_products_on_name"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

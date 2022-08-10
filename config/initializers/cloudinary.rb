@@ -1,6 +1,6 @@
 Cloudinary.config do |config|
-  config.cloud_name = "dsbuulrza"
-  config.api_key = "571851636232923"
-  config.api_secret = "bLFS4abArQ3eQ7Dytw2SjSwaRec"
+  config.cloud_name = Rails.application.credentials[:cloudinary][:cloud_name]
+  config.api_key = Rails.application.credentials[:cloudinary][:api_key]
+  config.api_secret = Rails.application.credentials[:cloudinary][:api_secret]
   config.secure = true
 end

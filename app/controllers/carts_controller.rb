@@ -2,6 +2,10 @@
 
 class CartsController < ApplicationController
   include CartsHelper
+  def index
+    @total_price = total(@cart)
+  end
+
   def show
     @total_price = total(@cart)
   end
