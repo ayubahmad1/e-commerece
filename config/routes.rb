@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     member do
       put 'update_quantity', as: 'update_quantity'
       post 'add_to_cart', as: 'add_to'
-      delete 'remove_form_cart', as: 'remove_from'
+      delete 'remove_from_cart', as: 'remove_from'
     end
   end
 
