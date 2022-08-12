@@ -79,7 +79,7 @@ gem 'ransack'
 
 group :development, :test do
   gem 'rubocop'
-  gem 'rubocop-minitest'
+  # gem 'rubocop-minitest'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec' # depending on your test suite

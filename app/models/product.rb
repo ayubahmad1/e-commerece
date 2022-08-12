@@ -9,7 +9,6 @@ class Product < ApplicationRecord
   validates :description, presence: true, length: { minimum: 20 }
   validates :quantity, numericality: { only_integer: true, greater_than: 0, less_than: 50_000 }
   validates :price, numericality: { only_integer: true, greater_than: 0, less_than: 1_000_000 }
-  # validates :attachment, presence: true, content_type: { content_type: 'image/*' }, size: { in: 0..500.kilobytes }
 
   scope :all_products_except_mine, ->(id) { where.not(user_id: id) }
 
