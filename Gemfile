@@ -57,7 +57,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  # gem 'chromedriver-helper'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -78,9 +78,21 @@ gem 'stripe'
 gem 'ransack'
 
 group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'shoulda-matchers'
+end
+
+group :development, :test do
   gem 'rubocop'
   gem 'rubocop-minitest'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec' # depending on your test suite
+end
+
+gem 'simplecov', require: false, group: :test
+
+group :test do
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
