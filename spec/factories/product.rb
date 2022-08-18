@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :product do
+    sequence(:id) { |n| n }
     name { 'Product1 Name' }
     description { 'This is the description of the product 1' }
     quantity { 12345 }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  let(:comment1){build(:comment1)}
+  # let(:comment1){build(:comment)}
 
   context 'Comments Specs' do
 

@@ -78,9 +78,12 @@ gem 'stripe'
 gem 'ransack'
 
 group :development, :test do
+  gem 'database_cleaner'
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'shoulda-matchers'
+  # gem 'factory_girl_rails', '~> 4.5'
 end
 
 group :development, :test do
