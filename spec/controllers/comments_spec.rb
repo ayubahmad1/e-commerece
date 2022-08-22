@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController do
-  let(:comment){create(:comment)}
+  let!(:comment){create(:comment)}
   let(:product){ comment.product }
 
   before do
@@ -46,6 +46,9 @@ RSpec.describe CommentsController do
         it 'should respond with new' do
           expect(response).to render_template(:new)
         end
+        it 'should assign a value to @comment' do
+          expect(assigns(:comment)).not_to eq nil
+        end
       end
     end
 
@@ -62,8 +65,15 @@ RSpec.describe CommentsController do
           it 'should assign a value to @comment' do
             expect(assigns(:comment)).not_to eq nil
           end
-          it 'should create a product and redirect to the product' do
+          it 'should create a comment and redirect to the product' do
             expect(response).to redirect_to product
+          end
+          it 'should create a comment and increment the count' do
+            expect{
+              post :create, params: {
+                comment: attributes_for(:comment),
+                product_id: product.id
+              }}.to change(Comment, :count).by(1)
           end
         end
         context 'with invalid attributes' do
@@ -109,6 +119,9 @@ RSpec.describe CommentsController do
         it 'should update a comment and redirect to product' do
           expect(response).to redirect_to product
         end
+        it 'should update a comment and check if updated' do
+          expect(true).to  eq(comment.saved_change_to_body?)
+        end
       end
 
       context 'Updating comment with invalid attributes' do
@@ -123,9 +136,16 @@ RSpec.describe CommentsController do
 
     describe 'DELETE /destroy' do
       context 'when the user tries to delete comment with valid attributes' do
-        before { delete :destroy, params: { id: comment.id } }
-        it 'delete a comment when user is logged in and redirect' do
+        it 'delete a comment and decrement the count and redirect to product' do
+          expect { delete :destroy, params: { id: comment.id }}.to change(Comment, :count).by(-1)
           expect(response).to redirect_to product
+        end
+      end
+      context 'Invalid case for delete' do
+        it 'not destroying the comment' do
+          allow_any_instance_of(Comment).to receive(:destroy).and_return(false)
+          expect { delete :destroy, params: { id: comment.id }}.to change(Product, :count).by(0)
+          expect(flash[:alert]).to have_content 'There is some error in deleting comment.'
         end
       end
     end

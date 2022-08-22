@@ -39,6 +39,9 @@ RSpec.describe ProductsController, type: :controller do
         it 'should respond with index' do
           expect(response).to render_template(:index)
         end
+        it 'assigns @products' do
+          expect(assigns(:products)).to include(product)
+        end
       end
     end
 
@@ -50,6 +53,9 @@ RSpec.describe ProductsController, type: :controller do
         end
         it 'should respond with new' do
           expect(response).to render_template(:new)
+        end
+        it 'should assign a value to @product' do
+          expect(assigns(:product)).not_to eq nil
         end
       end
     end
@@ -66,7 +72,18 @@ RSpec.describe ProductsController, type: :controller do
           it 'should assign a value to @product' do
             expect(assigns(:product)).not_to eq nil
           end
-
+          it 'should create a product and increment the count' do
+            expect{
+              post :create, params: {
+                product: attributes_for(:product),
+              }}.to change(Product, :count).by(1)
+          end
+          it 'should create a comment and increment the count' do
+            expect{
+              post :create, params: {
+                product: attributes_for(:product),
+              }}.to change(Product, :count).by(1)
+          end
         end
 
         context 'with invalid attributes' do
@@ -100,7 +117,8 @@ RSpec.describe ProductsController, type: :controller do
 
     describe 'POST #update' do
       context 'Updating user product with valid attributes' do
-        before { patch :update, params: {
+        before {
+          put :update, params: {
           product:{
             name: 'updating Product',
             user_id: product.user_id,
@@ -109,6 +127,9 @@ RSpec.describe ProductsController, type: :controller do
           id: product.id } }
         it 'should update a product and redirect to updated product' do
           expect(response).to redirect_to product
+        end
+        it 'should update a product and check if updated' do
+          expect(product.saved_change_to_name?).not_to be_truthy
         end
       end
 
@@ -124,9 +145,16 @@ RSpec.describe ProductsController, type: :controller do
 
     describe 'DELETE /destroy' do
       context 'when the user tries to delete product with valid attributes' do
-        before { delete :destroy, params: { id: product.id } }
-        it 'delete a product when user is logged in and redirect' do
+        it 'delete a product when user is logged in, decrement count and redirect' do
+          expect { delete :destroy, params: { id: product.id }}.to change(Product, :count).by(-1)
           expect(response).to redirect_to user_products_path
+        end
+      end
+      context 'Invalid case for delete' do
+        it 'not destroying the product' do
+          allow_any_instance_of(Product).to receive(:destroy).and_return(false)
+          expect { delete :destroy, params: { id: product.id }}.to change(Product, :count).by(0)
+          expect(flash[:alert]).to have_content 'There is some error in destroying Product'
         end
       end
     end
@@ -160,7 +188,12 @@ RSpec.describe ProductsController, type: :controller do
           expect(response).to render_template('all_products')
         end
 
-        it 'assigns @products' do
+        it 'assigns @products when user signed in' do
+          get :all_products
+          expect(assigns(:products)).not_to include([create(:product)])
+        end
+        it 'assigns @products when user not signed in' do
+          sign_out product.user
           get :all_products
           expect(assigns(:products)).not_to include([create(:product)])
         end

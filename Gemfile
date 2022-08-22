@@ -83,6 +83,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'shoulda-matchers'
+  gem 'faker'
   # gem 'factory_girl_rails', '~> 4.5'
 end
 

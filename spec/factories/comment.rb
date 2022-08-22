@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :comment do
     sequence(:id) { |n| n }
-    body { 'Comment1 Body' }
+    body { Faker::Lorem.sentence(word_count: 1)}
     user
     product
   end

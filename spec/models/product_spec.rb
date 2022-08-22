@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  # let(:product1) { build(:product) }
-  # let(:product2) { build(:product) }
 
-  context 'Product Specs' do
-    describe 'Validations of fields' do
+  describe 'Product Specs' do
+    context 'Validations of fields' do
       it { is_expected.to validate_presence_of(:name)}
       it {is_expected.to validate_length_of(:name).is_at_least(6)}
 
@@ -21,12 +19,12 @@ RSpec.describe Product, type: :model do
       it { should validate_numericality_of(:price).is_less_than(1000000) }
     end
 
-    describe 'Associations' do
+    context 'Associations' do
       it { should belong_to(:user) }
       it { is_expected.to have_many(:comments).dependent(:destroy) }
     end
 
-    describe 'Callbacks' do
+    context 'Callbacks' do
       it { should callback(:create_stripe_product).after(:create) }
     end
   end

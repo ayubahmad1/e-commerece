@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :product do
     sequence(:id) { |n| n }
-    name { 'Product1 Name' }
-    description { 'This is the description of the product 1' }
+    name { Faker::Internet.name }
+    description { Faker::Lorem.sentence(word_count: 10) }
     quantity { 12345 }
     price { 12345 }
     user
