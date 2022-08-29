@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   has_one_attached :image
   has_many :products, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  # has_many :comments, dependent: :destroy
 
   after_create :create_stripe_customer
 
