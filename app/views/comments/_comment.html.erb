@@ -3,7 +3,7 @@
       <p><%= comment.body%></p>
       <div class="d-flex justify-content-between">
         <div class="d-flex flex-row align-items-center">
-          <% if current_user.image.attached? %>
+          <% if user_signed_in? && current_user.image.attached? %>
             <%= image_tag(comment.user.image, size: 25) %>
           <% end %>
           <p class="small mb-0 ms-2"><%= comment.user.name %></p>

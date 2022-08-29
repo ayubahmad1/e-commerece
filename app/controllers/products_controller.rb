@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
+  # include ActiveStorage::SetCurrent
   include ApplicationHelper
   before_action :authenticate_user!, except: %i[index show all_products]
   before_action :set_product, only: %i[show edit update destroy]
@@ -15,9 +16,10 @@ class ProductsController < ApplicationController
 
   def all_products
     @q = Product.ransack(params[:q])
-    return @products = @q.result(distinct: true).all_products_except_mine(current_user) if user_signed_in?
-
     @products = @q.result(distinct: true)
+
+    @products = @q.result(distinct: true).all_products_except_mine(current_user) if user_signed_in?
+    render json: {status: 'SUCCESS', message: 'Loaded Products', data: @products}, status: :ok, include: [images: {methods: :service_url}]
   end
 
   def new
@@ -51,7 +53,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    render json: {status: 'SUCCESS', message: 'Loaded Product', data: @product }, status: :ok,  include: [images: {methods: :service_url}]
+  end
 
   private
 

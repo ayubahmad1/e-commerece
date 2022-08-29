@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_product, only: %i[new create]
+  before_action :authenticate_user!, except: %i[index]
+  before_action :set_product, only: %i[index new create]
   before_action :set_comment, :authorize_comment, only: %i[destroy edit update]
 
   after_action :verify_authorized, only: %i[destroy]
+
+  def index
+    @comments = @product.comments
+    render json: {status: 'SUCCESS', message: 'Loaded Comments', data: @comments }, status: :ok
+  end
 
   def new
     @comment = @product.comments.new
@@ -14,9 +19,11 @@ class CommentsController < ApplicationController
   def create
     @comment = @product.comments.build(comment_params)
     if @comment.save
-      redirect_to product_path(@product)
+      render json: {status: 'SUCCESS', message: 'Comment Saved', data: @comment }, status: :ok
+      # redirect_to product_path(@product)
     else
-      flash[:alert] = 'Comment is not valid.'
+      render json: {status: 'ERROR', message: 'Comment Not Saved', data: @comment.errors }, status: :unprocessable_entity
+      # flash[:alert] = 'Comment is not valid.'
     end
   end
 

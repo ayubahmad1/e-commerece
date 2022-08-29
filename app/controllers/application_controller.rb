@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :error_occurred
 
   include Pundit::Authorization
+  protect_from_forgery with: :null_session
 
   protected
 

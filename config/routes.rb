@@ -28,4 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'api' do
+    resources :products
+    resources :comments
+  end
 end

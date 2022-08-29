@@ -77,6 +77,8 @@ gem 'stripe'
 
 gem 'ransack'
 
+gem 'rack-cors'
+
 group :development, :test do
   gem 'rubocop'
   gem 'rubocop-minitest'
