@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index create]
+  before_action :authenticate_user!, except: %i[index create destroy]
   before_action :set_product, only: %i[index new create]
-  before_action :set_comment, :authorize_comment, only: %i[destroy edit update]
+  before_action :set_comment, only: %i[destroy edit update]
 
-  after_action :verify_authorized, only: %i[destroy]
+  # after_action :verify_authorized, only: %i[destroy]
 
   def index
     @comments = @product.comments
@@ -20,10 +20,8 @@ class CommentsController < ApplicationController
     @comment = @product.comments.build(comment_params)
     if @comment.save
       render json: {status: 'SUCCESS', message: 'Comment Saved', data: @comment }, status: :ok
-      # redirect_to product_path(@product)
     else
       render json: {status: 'ERROR', message: 'Comment Not Saved', data: @comment.errors }, status: :unprocessable_entity
-      # flash[:alert] = 'Comment is not valid.'
     end
   end
 
@@ -45,9 +43,11 @@ class CommentsController < ApplicationController
   def destroy
     @product = @comment.product
     if @comment.destroy
-      redirect_to product_path(@product)
+      # redirect_to product_path(@product)
+      render json: {status: 'SUCCESS', message: 'Comment Deleted', data: @comment }, status: :ok
     else
-      flash[:alert] = 'There is some error in deleting comment.'
+      # flash[:alert] = 'There is some error in deleting comment.'
+      render json: {status: 'ERROR', message: 'Comment Not Deleted', data: @comment.errors }, status: :unprocessable_entity
     end
   end
 
